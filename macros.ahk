@@ -25,7 +25,15 @@ switch key
 	case "num1": FocusOrLaunch("ahk_exe chrome.exe", "chrome.exe")
 	case "num2": FocusOrLaunch("ahk_exe Code.exe", "Code.exe")
 	case "num3": FocusOrLaunch("ahk_exe GitHubDesktop.exe", "GitHubDesktop.exe")
+	case "num5": FocusOrLaunch("ahk_exe Discord.exe", "Discord.exe")
 	case "num9": FocusOrLaunch("ahk_exe Spotify.exe", "Spotify.exe")
 	default: MsgBox, "%key%"
 }
 return
+
+NormalizePath(path) {
+	cc := DllCall("GetFullPathName", "str", path, "uint", 0, "ptr", 0, "ptr", 0, "uint")
+	VarSetCapacity(buf, cc*2)
+	DllCall("GetFullPathName", "str", path, "uint", cc, "str", buf, "ptr", 0)
+	return buf
+}
